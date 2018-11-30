@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Welcome</h1>
+    <button onclick="clickhandler()">click</button>
+  </body>
+  <script src="socket.io/socket.io.js"></script>
+  <script>
+    var socket = io(window.location.host);
+    socket.on("connect", function() {
+      socket.on("Start_Chat", function() {
+        alert("Ready!");
+      });
+    });
+    socket.on("hitting_event", function(obj) {
+      console.log(`hi from backend ${obj.key}`);
+    });
+
+    let clickhandler = () => {
+      socket.emit("hitting", { key: "value1" });
+    };
+  </script>
+</html>
